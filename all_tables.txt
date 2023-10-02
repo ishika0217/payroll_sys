@@ -1,0 +1,116 @@
+--CREATE TABLES--
+---------------------------------------------------
+Employee
+---------------------------------------------------
+create table employee(
+    -> employee_id int(6),
+    -> first_name varchar(25),
+    -> last_name varchar(25),
+    -> hire_date date,
+    -> city varchar(25),
+    -> state varchar(25),
+    -> constraint employee_pk primary key(employee_id));
+
+---------------------------------------------------
+Department
+---------------------------------------------------
+create table department(
+    -> department_id int,
+    -> department_name varchar(30),
+    -> constraint deparmtent_pk primary key(department_id));
+
+---------------------------------------------------
+  AccountDetails
+---------------------------------------------------
+create table account_details(
+    -> account_id int,
+    -> bank_name varchar(50),
+    -> account_number varchar(50),
+    -> employee_id int,
+    -> constraint account_pk primary key(account_id),
+    -> foreign key(employee_id) references employee(employee_id));
+
+--------------------------------------------------
+  Project
+--------------------------------------------------
+create table project(
+    -> project_id int,
+    -> project_name varchar(50),
+    -> project_description varchar(50),
+    -> constraint project_pk primary key(project_id));
+
+-------------------------------------------------
+  Salary
+-------------------------------------------------
+create table salary(
+    -> salary_id int,
+    -> gross_salary int,
+    -> hourly_pay int,
+    -> state_tax int,
+    -> federal_tax int,
+    -> account_id int,
+    -> constraint salary_pk primary key(salary_id),
+    -> foreign key(account_id) references account_details(account_id));
+
+-------------------------------------------------
+  Projects + department
+-------------------------------------------------
+create table department_project(
+    -> department_id int,
+    -> project_id int,
+    -> constraint deptproject_pk primary key (department_id),
+    -> foreign key(department_id) references department(department_id),
+    -> foreign key(project_id) references project(project_id));
+
+---------------------------------------------------
+  Education
+---------------------------------------------------
+create table education(
+    -> education_id int,
+    -> employee_id int,
+    -> degree varchar(30),
+    -> graduation_year int(4),
+    -> constraint location_pk primary key (education_id),
+    -> foreign key (employee_id) references employee(employee_id));
+
+---------------------------------------------------
+  Leaves
+--------------------------------------------------- 
+create table leaves(
+    -> leave_id int,
+    -> employee_id int,
+    -> leave_date date,
+    -> constraint leave_pk primary key (leave_id),
+    -> foreign key (employee_id) references employee(employee_id));
+
+----------------------------------------------------
+  Attendance
+----------------------------------------------------
+create table attendance(
+    -> attendance_id int,
+    -> hours_worked int,
+    -> constraint attendance_pk primary key(attendance_id));
+
+----------------------------------------------------
+Attendance + Employee
+----------------------------------------------------
+create table employee_attendance(
+    -> employee_id int,
+    -> attendance_id int,
+    -> constraint departmentproject_pk primary key (employee_id,attendance_id),
+    -> foreign key (employee_id) references employee(employee_id),
+    -> foreign key (attendance_id) references attendance(attendance_id));
+
+----------------------------------------------------
+  WorkLocation
+----------------------------------------------------
+create table work_location(
+    -> location_id int,
+    -> location varchar(25),
+    -> number_of_employees int,
+    -> city varchar(25),
+    -> state varchar(25),
+    -> constraint loc_pk primary key (location_id));
+  
+  
+  
